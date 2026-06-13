@@ -1,0 +1,38 @@
+---
+import { methodology } from '../data/site';
+import SectionHeading from './SectionHeading.astro';
+import Icon from './Icon.astro';
+---
+
+<section id="methodology" class="section-pad">
+  <div class="container-page">
+    <SectionHeading
+      eyebrow="শিক্ষাদান পদ্ধতি"
+      eyebrowIcon="target"
+      title="ধাপে ধাপে শিক্ষাদান পদ্ধতি"
+      subtitle="একটি সুনির্দিষ্ট ও পরীক্ষিত প্রক্রিয়ায় ধারণা থেকে চূড়ান্ত প্রস্তুতি পর্যন্ত।"
+    />
+
+    <!-- horizontal timeline -->
+    <div class="relative">
+      <div class="absolute left-0 right-0 top-7 hidden h-0.5 bg-gradient-to-r from-navy-200 via-navy-300 to-navy-200 lg:block" aria-hidden="true"></div>
+
+      <ol class="grid gap-6 sm:grid-cols-2 lg:grid-cols-6 lg:gap-4">
+        {
+          methodology.map((m, i) => (
+            <li class="reveal relative flex flex-col items-center text-center" style={`transition-delay:${i * 80}ms`}>
+              <span class="relative z-10 grid h-14 w-14 place-items-center rounded-full bg-gradient-to-br from-navy-600 to-navy-800 text-gold-400 shadow-lg ring-4 ring-white">
+                <Icon name={m.icon} class="h-6 w-6" />
+                <span class="absolute -right-1 -top-1 grid h-6 w-6 place-items-center rounded-full bg-gold-500 text-xs font-bold text-navy-900 shadow">
+                  {m.step}
+                </span>
+              </span>
+              <h3 class="mt-4 font-bold text-navy-800">{m.title}</h3>
+              <p class="mt-1.5 text-sm leading-relaxed text-navy-600">{m.detail}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>

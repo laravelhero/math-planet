@@ -1,0 +1,103 @@
+---
+import { site, teacher, faqs } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = `${site.brandEn} — ${teacher.name} | উচ্চতর গণিত কোচিং`,
+  description = site.description,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, site.url).href;
+const ogImage = new URL('/og-image.svg', site.url).href;
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: teacher.nameEn,
+  alternateName: teacher.name,
+  jobTitle: 'Lecturer (Mathematics)',
+  worksFor: {
+    '@type': 'CollegeOrUniversity',
+    name: "Chittagong Govt. Women's College",
+  },
+  alumniOf: {
+    '@type': 'CollegeOrUniversity',
+    name: 'University of Dhaka',
+  },
+  email: `mailto:${teacher.email}`,
+  telephone: `+88${teacher.mobile}`,
+  description:
+    '36th BCS (Education Cadre) Lecturer in Mathematics and HSC Higher Mathematics tutor.',
+  knowsAbout: ['Higher Mathematics', 'HSC Mathematics', 'Calculus', 'Coordinate Geometry'],
+};
+
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'EducationalOrganization',
+  name: site.brandEn,
+  alternateName: site.name,
+  url: site.url,
+  description: site.description,
+  telephone: `+88${teacher.mobile}`,
+  email: teacher.email,
+  founder: { '@type': 'Person', name: teacher.nameEn },
+  areaServed: 'BD',
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'হোম', item: site.url },
+    { '@type': 'ListItem', position: 2, name: 'কোর্সসমূহ', item: `${site.url}#courses` },
+    { '@type': 'ListItem', position: 3, name: 'ভর্তি', item: `${site.url}#admission` },
+  ],
+};
+---
+
+<!-- Primary Meta -->
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+<meta name="author" content={teacher.nameEn} />
+<meta
+  name="keywords"
+  content="উচ্চতর গণিত, HSC গণিত, Higher Math, HSC Coaching, Math Planet, হাসান উজ্জামান সমীর, গণিত কোচিং, ঢাকা বিশ্ববিদ্যালয়, বিসিএস শিক্ষক"
+/>
+<link rel="canonical" href={canonical} />
+<meta name="robots" content="index, follow" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="bn_BD" />
+<meta property="og:site_name" content={site.brandEn} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<!-- Structured Data -->
+<script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+<script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />

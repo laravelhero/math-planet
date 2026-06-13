@@ -1,0 +1,127 @@
+---
+import { teacher } from '../data/site';
+import Icon from './Icon.astro';
+
+const benefits = [
+  'অভিজ্ঞ বিসিএস ক্যাডার শিক্ষকের সরাসরি ক্লাস',
+  'অধ্যায়ভিত্তিক নোট ও নিয়মিত পরীক্ষা',
+  'দুর্বল শিক্ষার্থীদের জন্য বিশেষ যত্ন',
+  'বোর্ড প্রশ্ন বিশ্লেষণ ও শর্টকাট টেকনিক',
+];
+---
+
+<section id="admission" class="section-pad bg-white">
+  <div class="container-page">
+    <div class="overflow-hidden rounded-3xl border border-navy-100 shadow-xl lg:grid lg:grid-cols-5">
+      <!-- Left: pitch -->
+      <div class="relative overflow-hidden bg-gradient-to-br from-navy-800 to-navy-950 p-8 text-white lg:col-span-2 lg:p-10">
+        <div class="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-gold-500/15 blur-3xl"></div>
+        <span class="eyebrow bg-white/10 text-gold-300 ring-1 ring-white/15">
+          <Icon name="check" class="h-4 w-4" />
+          ভর্তি চলছে
+        </span>
+        <h2 class="mt-5 text-2xl font-bold sm:text-3xl">ফ্রি কাউন্সেলিংয়ের জন্য আবেদন করুন</h2>
+        <p class="mt-3 leading-relaxed text-navy-100">
+          ফরমটি পূরণ করুন — আমরা দ্রুত আপনার সাথে যোগাযোগ করে কোর্স, সময়সূচি ও ফি সম্পর্কে বিস্তারিত জানাবো।
+        </p>
+        <ul class="mt-6 space-y-3">
+          {
+            benefits.map((b) => (
+              <li class="flex items-start gap-3 text-sm text-navy-50">
+                <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-emerald-500/20 text-emerald-300">
+                  <Icon name="check" class="h-4 w-4" />
+                </span>
+                {b}
+              </li>
+            ))
+          }
+        </ul>
+        <div class="mt-8 flex items-center gap-3 rounded-2xl bg-white/10 p-4 ring-1 ring-white/15">
+          <Icon name="phone" class="h-6 w-6 text-gold-300" />
+          <div>
+            <p class="text-xs text-navy-200">সরাসরি কথা বলুন</p>
+            <a href={`tel:+88${teacher.mobile}`} class="text-lg font-bold tracking-wide">{teacher.mobileDisplay}</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: form -->
+      <div class="p-8 lg:col-span-3 lg:p-10">
+        <form
+          class="grid gap-4 sm:grid-cols-2"
+          x-data="{ sent: false }"
+          @submit.prevent="sent = true"
+        >
+          <div class="sm:col-span-2">
+            <label for="name" class="mb-1.5 block text-sm font-semibold text-navy-700">শিক্ষার্থীর নাম <span class="text-rose-500">*</span></label>
+            <input id="name" name="name" type="text" required placeholder="পূর্ণ নাম লিখুন"
+              class="w-full rounded-xl border border-navy-200 bg-navy-50/40 px-4 py-3 text-navy-900 outline-none transition focus:border-navy-500 focus:bg-white focus:ring-4 focus:ring-navy-100" />
+          </div>
+
+          <div>
+            <label for="mobile" class="mb-1.5 block text-sm font-semibold text-navy-700">মোবাইল নম্বর <span class="text-rose-500">*</span></label>
+            <input id="mobile" name="mobile" type="tel" required placeholder="01XXXXXXXXX"
+              class="w-full rounded-xl border border-navy-200 bg-navy-50/40 px-4 py-3 text-navy-900 outline-none transition focus:border-navy-500 focus:bg-white focus:ring-4 focus:ring-navy-100" />
+          </div>
+
+          <div>
+            <label for="college" class="mb-1.5 block text-sm font-semibold text-navy-700">কলেজের নাম</label>
+            <input id="college" name="college" type="text" placeholder="কলেজের নাম লিখুন"
+              class="w-full rounded-xl border border-navy-200 bg-navy-50/40 px-4 py-3 text-navy-900 outline-none transition focus:border-navy-500 focus:bg-white focus:ring-4 focus:ring-navy-100" />
+          </div>
+
+          <div>
+            <label for="year" class="mb-1.5 block text-sm font-semibold text-navy-700">HSC বর্ষ</label>
+            <select id="year" name="year"
+              class="w-full rounded-xl border border-navy-200 bg-navy-50/40 px-4 py-3 text-navy-900 outline-none transition focus:border-navy-500 focus:bg-white focus:ring-4 focus:ring-navy-100">
+              <option value="">নির্বাচন করুন</option>
+              <option>HSC ১ম বর্ষ</option>
+              <option>HSC ২য় বর্ষ</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="group" class="mb-1.5 block text-sm font-semibold text-navy-700">বিভাগ</label>
+            <select id="group" name="group"
+              class="w-full rounded-xl border border-navy-200 bg-navy-50/40 px-4 py-3 text-navy-900 outline-none transition focus:border-navy-500 focus:bg-white focus:ring-4 focus:ring-navy-100">
+              <option value="">নির্বাচন করুন</option>
+              <option>বিজ্ঞান</option>
+              <option>মানবিক</option>
+              <option>ব্যবসায় শিক্ষা</option>
+            </select>
+          </div>
+
+          <div class="sm:col-span-2">
+            <label for="message" class="mb-1.5 block text-sm font-semibold text-navy-700">বার্তা</label>
+            <textarea id="message" name="message" rows="3" placeholder="আপনার প্রশ্ন বা প্রয়োজন লিখুন (ঐচ্ছিক)"
+              class="w-full rounded-xl border border-navy-200 bg-navy-50/40 px-4 py-3 text-navy-900 outline-none transition focus:border-navy-500 focus:bg-white focus:ring-4 focus:ring-navy-100"></textarea>
+          </div>
+
+          <div class="sm:col-span-2">
+            <button type="submit" class="btn-gold w-full" x-show="!sent">
+              <Icon name="check" class="h-5 w-5" />
+              ফ্রি কাউন্সেলিংয়ের জন্য আবেদন করুন
+            </button>
+            <div
+              x-show="sent"
+              x-cloak
+              class="flex items-center gap-3 rounded-xl bg-emerald-50 p-4 text-emerald-800 ring-1 ring-emerald-200"
+            >
+              <Icon name="check" class="h-6 w-6 text-emerald-600" />
+              <p class="text-sm font-semibold">ধন্যবাদ! আপনার আবেদন গ্রহণ করা হয়েছে। আমরা শীঘ্রই যোগাযোগ করবো।</p>
+            </div>
+            <p class="mt-3 text-center text-xs text-navy-400">
+              আপনার তথ্য সম্পূর্ণ গোপন রাখা হবে।
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  [x-cloak] {
+    display: none !important;
+  }
+</style>

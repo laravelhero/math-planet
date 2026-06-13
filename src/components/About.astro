@@ -1,0 +1,84 @@
+---
+import { teacher } from '../data/site';
+import SectionHeading from './SectionHeading.astro';
+import Icon from './Icon.astro';
+
+const journey = [
+  {
+    icon: 'university',
+    title: 'ঢাকা বিশ্ববিদ্যালয়ে যাত্রা',
+    detail: 'গণিতে বিএসসি (সম্মান) এবং ফলিত গণিতে এমএস সম্পন্ন করে গণিতের গভীর ভিত গড়ে তোলা।',
+  },
+  {
+    icon: 'badge',
+    title: '৩৬তম বিসিএস (শিক্ষা ক্যাডার)',
+    detail: 'প্রতিযোগিতামূলক বিসিএস পরীক্ষায় উত্তীর্ণ হয়ে শিক্ষা ক্যাডারে নিয়োগ লাভ।',
+  },
+  {
+    icon: 'teacher',
+    title: 'প্রভাষক হিসেবে অধ্যাপনা',
+    detail: 'চট্টগ্রাম সরকারি মহিলা কলেজে গণিত বিভাগে প্রভাষক হিসেবে দায়িত্ব পালন।',
+  },
+  {
+    icon: 'heart',
+    title: 'শিক্ষার্থীকেন্দ্রিক কোচিং',
+    detail: 'HSC শিক্ষার্থীদের জন্য ফলাফলভিত্তিক উচ্চতর গণিত কোচিং পরিচালনা।',
+  },
+];
+---
+
+<section id="about" class="section-pad">
+  <div class="container-page">
+    <SectionHeading
+      eyebrow="পরিচিতি"
+      eyebrowIcon="user"
+      title="স্যার সম্পর্কে"
+      subtitle={`${teacher.name} — একজন অভিজ্ঞ গণিতবিদ ও নিবেদিতপ্রাণ শিক্ষক, যিনি জটিল গণিতকে সহজ করে তোলেন।`}
+    />
+
+    <div class="grid items-start gap-10 lg:grid-cols-2">
+      <!-- Philosophy -->
+      <div class="reveal space-y-5">
+        <p class="text-lg font-semibold text-navy-800">
+          “গণিত মুখস্থের বিষয় নয় — বোঝার বিষয়। সঠিক ধারণা গড়ে দিলে যেকোনো শিক্ষার্থীই উচ্চতর গণিতে সফল হতে পারে।”
+        </p>
+        <p class="leading-relaxed text-navy-600">
+          ঢাকা বিশ্ববিদ্যালয় থেকে গণিতে স্নাতক ও ফলিত গণিতে স্নাতকোত্তর সম্পন্ন করে {teacher.name} একজন
+          দক্ষ ও অভিজ্ঞ শিক্ষক হিসেবে গড়ে উঠেছেন। ৩৬তম বিসিএস (শিক্ষা ক্যাডার) কর্মকর্তা হিসেবে তিনি
+          বর্তমানে চট্টগ্রাম সরকারি মহিলা কলেজে গণিত বিভাগে প্রভাষক হিসেবে কর্মরত।
+        </p>
+        <p class="leading-relaxed text-navy-600">
+          তাঁর শিক্ষাদান পদ্ধতি মূল ধারণার উপর প্রতিষ্ঠিত — প্রতিটি অধ্যায়ের ভিত মজবুত করে, অনুশীলন ও
+          নিয়মিত পরীক্ষার মাধ্যমে শিক্ষার্থীদের আত্মবিশ্বাসী করে তোলা। বিশেষ করে গণিতে দুর্বল
+          শিক্ষার্থীদের প্রতি তাঁর বাড়তি মনোযোগ HSC পরীক্ষায় চমৎকার ফলাফল এনে দেয়।
+        </p>
+
+        <div class="flex flex-wrap gap-3 pt-2">
+          <span class="inline-flex items-center gap-2 rounded-xl bg-navy-50 px-4 py-2 text-sm font-semibold text-navy-700">
+            <Icon name="cap" class="h-5 w-5 text-gold-500" /> ফলিত গণিতে এমএস
+          </span>
+          <span class="inline-flex items-center gap-2 rounded-xl bg-navy-50 px-4 py-2 text-sm font-semibold text-navy-700">
+            <Icon name="target" class="h-5 w-5 text-emerald-600" /> ফলাফলভিত্তিক প্রস্তুতি
+          </span>
+        </div>
+      </div>
+
+      <!-- Timeline -->
+      <ol class="relative space-y-6 border-r-2 border-navy-100 pr-6 lg:border-r-0 lg:border-l-2 lg:pr-0 lg:pl-8">
+        {
+          journey.map((item, i) => (
+            <li class="reveal relative" style={`transition-delay:${i * 80}ms`}>
+              <span class="absolute -right-[2.6rem] top-1 grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-navy-600 to-navy-800 text-gold-400 shadow-md ring-4 ring-white lg:-left-[2.6rem] lg:right-auto">
+                <Icon name={item.icon} class="h-4 w-4" />
+              </span>
+              <div class="card hover:shadow-md">
+                <h3 class="font-bold text-navy-800">{item.title}</h3>
+                <p class="mt-1.5 text-sm leading-relaxed text-navy-600">{item.detail}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>

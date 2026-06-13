@@ -1,0 +1,109 @@
+---
+import { site, teacher, navLinks, courses } from '../data/site';
+import Icon from './Icon.astro';
+
+const year = new Date().getFullYear();
+const yearBn = String(year).replace(/[0-9]/g, (d) => '০১২৩৪৫৬৭৮৯'[+d]);
+const socials = [
+  { name: 'facebook', href: '#', label: 'Facebook' },
+  { name: 'whatsapp', href: `https://wa.me/${teacher.whatsapp}`, label: 'WhatsApp' },
+  { name: 'mail', href: `mailto:${teacher.email}`, label: 'Email' },
+];
+---
+
+<footer class="bg-navy-950 text-navy-200">
+  <div class="container-page py-14">
+    <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+      <!-- Brand -->
+      <div class="lg:col-span-1">
+        <div class="flex items-center gap-2.5">
+          <span class="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-navy-600 to-navy-800 text-gold-400">
+            <Icon name="math" class="h-6 w-6" />
+          </span>
+          <div class="leading-tight">
+            <p class="text-lg font-bold text-white">{site.name}</p>
+            <p class="text-[11px] tracking-wide text-navy-400">{site.brandEn}</p>
+          </div>
+        </div>
+        <p class="mt-4 text-sm leading-relaxed text-navy-300">
+          HSC ১ম ও ২য় বর্ষের শিক্ষার্থীদের জন্য অভিজ্ঞ ও ফলাফলভিত্তিক উচ্চতর গণিত কোচিং।
+        </p>
+      </div>
+
+      <!-- Quick links -->
+      <div>
+        <h3 class="text-sm font-bold uppercase tracking-wider text-white">দ্রুত লিংক</h3>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          {
+            navLinks.map((l) => (
+              <li>
+                <a href={l.href} class="text-navy-300 transition hover:text-gold-400">
+                  {l.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Courses -->
+      <div>
+        <h3 class="text-sm font-bold uppercase tracking-wider text-white">কোর্সসমূহ</h3>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          {
+            courses.map((c) => (
+              <li>
+                <a href="#courses" class="text-navy-300 transition hover:text-gold-400">
+                  {c.title}
+                </a>
+              </li>
+            ))
+          }
+          <li>
+            <a href="#admission" class="text-navy-300 transition hover:text-gold-400">ভর্তি ফরম</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h3 class="text-sm font-bold uppercase tracking-wider text-white">যোগাযোগ</h3>
+        <ul class="mt-4 space-y-3 text-sm">
+          <li class="flex items-center gap-2.5">
+            <Icon name="phone" class="h-5 w-5 text-gold-400" />
+            <a href={`tel:+88${teacher.mobile}`} class="hover:text-gold-400">{teacher.mobileDisplay}</a>
+          </li>
+          <li class="flex items-center gap-2.5">
+            <Icon name="mail" class="h-5 w-5 text-gold-400" />
+            <a href={`mailto:${teacher.email}`} class="break-all hover:text-gold-400">{teacher.email}</a>
+          </li>
+          <li class="flex items-start gap-2.5">
+            <Icon name="university" class="mt-0.5 h-5 w-5 shrink-0 text-gold-400" />
+            <span>চট্টগ্রাম সরকারি মহিলা কলেজ, চট্টগ্রাম</span>
+          </li>
+        </ul>
+
+        <!-- Socials -->
+        <div class="mt-5 flex gap-3">
+          {
+            socials.map((s) => (
+              <a
+                href={s.href}
+                target="_blank"
+                rel="noopener"
+                aria-label={s.label}
+                class="grid h-10 w-10 place-items-center rounded-xl bg-white/5 text-navy-200 transition hover:bg-gold-500 hover:text-navy-900"
+              >
+                <Icon name={s.name === 'facebook' ? 'user' : s.name} class="h-5 w-5" />
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-10 border-t border-white/10 pt-6 text-center text-sm text-navy-400">
+      © {yearBn} {site.name} — {teacher.name}। সর্বস্বত্ব সংরক্ষিত।
+    </div>
+  </div>
+</footer>

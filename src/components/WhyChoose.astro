@@ -1,0 +1,33 @@
+---
+import { features } from '../data/site';
+import SectionHeading from './SectionHeading.astro';
+import Icon from './Icon.astro';
+---
+
+<section id="why" class="section-pad">
+  <div class="container-page">
+    <SectionHeading
+      eyebrow="কেন আমাদের কোচিং"
+      eyebrowIcon="star"
+      title="কেন এই কোচিং বেছে নেবেন"
+      subtitle="ফলাফলভিত্তিক, শিক্ষার্থীকেন্দ্রিক ও পরীক্ষিত পদ্ধতিতে উচ্চতর গণিতে দক্ষতা অর্জন।"
+    />
+
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        features.map((f, i) => (
+          <article
+            class="reveal group flex flex-col gap-3 rounded-2xl border border-navy-100 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-emerald-200 hover:shadow-lg"
+            style={`transition-delay:${(i % 4) * 70}ms`}
+          >
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-emerald-50 text-emerald-600 transition-colors group-hover:bg-emerald-600 group-hover:text-white">
+              <Icon name={f.icon} class="h-6 w-6" />
+            </span>
+            <h3 class="font-bold text-navy-800">{f.title}</h3>
+            <p class="text-sm leading-relaxed text-navy-600">{f.detail}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

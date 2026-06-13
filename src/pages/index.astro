@@ -1,0 +1,36 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Qualifications from '../components/Qualifications.astro';
+import WhyChoose from '../components/WhyChoose.astro';
+import Courses from '../components/Courses.astro';
+import Methodology from '../components/Methodology.astro';
+import Results from '../components/Results.astro';
+import Testimonials from '../components/Testimonials.astro';
+import FAQ from '../components/FAQ.astro';
+import AdmissionForm from '../components/AdmissionForm.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import FloatingActions from '../components/FloatingActions.astro';
+---
+
+<Layout>
+  <Navbar />
+  <main class="pb-16 sm:pb-0">
+    <Hero />
+    <About />
+    <Qualifications />
+    <WhyChoose />
+    <Courses />
+    <Methodology />
+    <Results />
+    <Testimonials />
+    <FAQ />
+    <AdmissionForm />
+    <Contact />
+  </main>
+  <Footer />
+  <FloatingActions />
+</Layout>

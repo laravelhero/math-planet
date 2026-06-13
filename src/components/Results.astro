@@ -1,0 +1,123 @@
+---
+import { results } from '../data/site';
+import SectionHeading from './SectionHeading.astro';
+import Icon from './Icon.astro';
+
+const trustPoints = [
+  { icon: 'badge', text: 'বিসিএস ক্যাডার শিক্ষকের সরাসরি তত্ত্বাবধান' },
+  { icon: 'chart', text: 'নিয়মিত ফলাফল রিপোর্ট ও অভিভাবক আপডেট' },
+  { icon: 'heart', text: 'প্রতিটি শিক্ষার্থীর জন্য ব্যক্তিগত যত্ন' },
+];
+---
+
+<section
+  id="results"
+  class="section-pad relative overflow-hidden bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900 text-white"
+>
+  <div class="pointer-events-none absolute inset-0 opacity-[0.05] [background-image:radial-gradient(circle,white_1px,transparent_1px)] [background-size:26px_26px]" aria-hidden="true"></div>
+
+  <div class="container-page relative">
+    <SectionHeading
+      light
+      eyebrow="সাফল্য ও ফলাফল"
+      eyebrowIcon="chart"
+      title="আমাদের অর্জন ও সাফল্য"
+      subtitle="বছরের পর বছর ধারাবাহিক ফলাফলই আমাদের শিক্ষার্থী ও অভিভাবকদের আস্থার ভিত্তি।"
+    />
+
+    <!-- Animated counters -->
+    <dl
+      class="grid grid-cols-2 gap-4 lg:grid-cols-4"
+      x-data="counters"
+      x-init="observe($el)"
+    >
+      {
+        results.map((r) => (
+          <div class="reveal rounded-2xl bg-white/10 p-6 text-center ring-1 ring-white/15 backdrop-blur">
+            <dt
+              class="text-4xl font-bold text-gold-400 sm:text-5xl"
+              x-text={`format(${results.indexOf(r)})`}
+              data-target={r.value}
+              data-suffix={r.suffix}
+            >
+              ০{r.suffix}
+            </dt>
+            <dd class="mt-2 text-sm font-medium text-navy-100">{r.label}</dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <!-- Trust indicators -->
+    <div class="mt-10 grid gap-4 sm:grid-cols-3">
+      {
+        trustPoints.map((t) => (
+          <div class="reveal flex items-center gap-3 rounded-2xl bg-white/5 p-4 ring-1 ring-white/10">
+            <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-gold-500/20 text-gold-300">
+              <Icon name={t.icon} class="h-6 w-6" />
+            </span>
+            <p class="text-sm font-medium text-navy-50">{t.text}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  import Alpine from 'alpinejs';
+
+  const toBangla = (n: number) =>
+    String(n).replace(/[0-9]/g, (d) => '০১২৩৪৫৬৭৮৯'[+d]);
+
+  Alpine.data('counters', () => ({
+    shown: [] as number[],
+    targets: [] as { value: number; suffix: string }[],
+    done: false,
+    format(idx: number) {
+      const t = this.targets[idx];
+      if (!t) return '';
+      return toBangla(Math.round(this.shown[idx] ?? 0)) + t.suffix;
+    },
+    observe(el: HTMLElement) {
+      const nodes = Array.from(el.querySelectorAll<HTMLElement>('[data-target]'));
+      this.targets = nodes.map((n) => ({
+        value: Number(n.dataset.target),
+        suffix: n.dataset.suffix ?? '',
+      }));
+      this.shown = this.targets.map(() => 0);
+
+      const start = () => {
+        if (this.done) return;
+        this.done = true;
+        const duration = 1600;
+        const t0 = performance.now();
+        const tick = (now: number) => {
+          const p = Math.min((now - t0) / duration, 1);
+          const ease = 1 - Math.pow(1 - p, 3);
+          this.shown = this.targets.map((t) => t.value * ease);
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      };
+
+      if (!('IntersectionObserver' in window)) {
+        this.shown = this.targets.map((t) => t.value);
+        this.done = true;
+        return;
+      }
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              start();
+              io.disconnect();
+            }
+          });
+        },
+        { threshold: 0.4 }
+      );
+      io.observe(el);
+    },
+  }));
+</script>

@@ -1,0 +1,34 @@
+---
+import { qualifications } from '../data/site';
+import SectionHeading from './SectionHeading.astro';
+import Icon from './Icon.astro';
+---
+
+<section id="qualifications" class="section-pad bg-white">
+  <div class="container-page">
+    <SectionHeading
+      eyebrow="একাডেমিক যোগ্যতা"
+      eyebrowIcon="cap"
+      title="শিক্ষাগত যোগ্যতা ও অর্জন"
+      subtitle="দেশের শীর্ষ বিশ্ববিদ্যালয়ের শিক্ষা ও বিসিএস ক্যাডারের অভিজ্ঞতায় সমৃদ্ধ।"
+    />
+
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        qualifications.map((q, i) => (
+          <article
+            class="reveal group card relative overflow-hidden hover:-translate-y-1 hover:border-navy-200 hover:shadow-xl"
+            style={`transition-delay:${i * 80}ms`}
+          >
+            <div class="absolute -right-6 -top-6 h-20 w-20 rounded-full bg-gold-100/60 transition-transform duration-500 group-hover:scale-150" />
+            <span class="relative grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-navy-600 to-navy-800 text-gold-400 shadow-lg transition-transform duration-300 group-hover:scale-110">
+              <Icon name={q.icon} class="h-7 w-7" />
+            </span>
+            <h3 class="relative mt-4 text-lg font-bold leading-snug text-navy-800">{q.title}</h3>
+            <p class="relative mt-2 text-sm leading-relaxed text-navy-600">{q.detail}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

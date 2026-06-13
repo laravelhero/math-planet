@@ -1,0 +1,32 @@
+---
+import { teacher } from '../data/site';
+import Icon from './Icon.astro';
+
+const waText = encodeURIComponent('আসসালামু আলাইকুম, আমি উচ্চতর গণিত কোর্স সম্পর্কে জানতে চাই।');
+---
+
+<!-- Floating WhatsApp (all screens) -->
+<a
+  href={`https://wa.me/${teacher.whatsapp}?text=${waText}`}
+  target="_blank"
+  rel="noopener"
+  aria-label="WhatsApp এ যোগাযোগ করুন"
+  class="group fixed bottom-20 right-4 z-40 grid h-14 w-14 place-items-center rounded-full bg-emerald-500 text-white shadow-xl shadow-emerald-500/40 transition hover:scale-110 hover:bg-emerald-600 sm:bottom-6"
+>
+  <span class="absolute inset-0 animate-ping rounded-full bg-emerald-500 opacity-30"></span>
+  <Icon name="whatsapp" class="relative h-7 w-7" />
+</a>
+
+<!-- Sticky mobile bottom CTA bar -->
+<div class="fixed inset-x-0 bottom-0 z-40 border-t border-navy-100 bg-white/95 backdrop-blur sm:hidden">
+  <div class="grid grid-cols-2 gap-2 p-2.5">
+    <a href={`tel:+88${teacher.mobile}`} class="btn-primary py-2.5 text-sm">
+      <Icon name="phone" class="h-4 w-4" />
+      কল করুন
+    </a>
+    <a href="#admission" class="btn-gold py-2.5 text-sm">
+      <Icon name="check" class="h-4 w-4" />
+      ভর্তি হন
+    </a>
+  </div>
+</div>

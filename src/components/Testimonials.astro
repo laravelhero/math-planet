@@ -1,0 +1,103 @@
+---
+import { testimonials } from '../data/site';
+import SectionHeading from './SectionHeading.astro';
+import Icon from './Icon.astro';
+---
+
+<section id="testimonials" class="section-pad bg-white">
+  <div class="container-page">
+    <SectionHeading
+      eyebrow="শিক্ষার্থীদের মতামত"
+      eyebrowIcon="quote"
+      title="শিক্ষার্থী ও অভিভাবকদের কথা"
+      subtitle="আমাদের শিক্ষার্থী ও তাদের অভিভাবকদের সরাসরি অভিজ্ঞতা ও সাফল্যের গল্প।"
+    />
+
+    <div
+      class="reveal relative mx-auto max-w-3xl"
+      x-data={`{
+        active: 0,
+        total: ${testimonials.length},
+        autoplay: null,
+        next() { this.active = (this.active + 1) % this.total },
+        prev() { this.active = (this.active - 1 + this.total) % this.total },
+        start() { this.autoplay = setInterval(() => this.next(), 5500) },
+        stop() { clearInterval(this.autoplay) }
+      }`}
+      x-init="start()"
+      @mouseenter="stop()"
+      @mouseleave="start()"
+    >
+      <div class="relative overflow-hidden rounded-3xl border border-navy-100 bg-gradient-to-b from-navy-50/60 to-white p-8 shadow-sm sm:p-10">
+        <span class="absolute right-6 top-6 text-navy-100">
+          <Icon name="quote" class="h-16 w-16" />
+        </span>
+
+        {
+          testimonials.map((t, i) => (
+            <figure
+              x-show={`active === ${i}`}
+              x-cloak={i !== 0}
+              x-transition:enter="transition ease-out duration-400"
+              x-transition:enter-start="opacity-0 translate-x-6"
+              x-transition:enter-end="opacity-100 translate-x-0"
+              class="relative"
+            >
+              <div class="flex gap-1 text-gold-500">
+                {Array.from({ length: 5 }).map(() => <Icon name="star" class="h-5 w-5" />)}
+              </div>
+              <blockquote class="mt-4 text-lg leading-relaxed text-navy-700">{t.text}</blockquote>
+              <figcaption class="mt-6 flex items-center gap-3">
+                <span class="grid h-12 w-12 place-items-center rounded-full bg-gradient-to-br from-navy-600 to-navy-800 text-lg font-bold text-gold-300">
+                  {t.name.charAt(0)}
+                </span>
+                <div>
+                  <p class="font-bold text-navy-800">{t.name}</p>
+                  <p class="text-sm text-navy-500">{t.role}</p>
+                </div>
+              </figcaption>
+            </figure>
+          ))
+        }
+      </div>
+
+      <!-- Controls -->
+      <div class="mt-6 flex items-center justify-center gap-4">
+        <button
+          @click="prev()"
+          class="grid h-11 w-11 place-items-center rounded-full border border-navy-200 bg-white text-navy-700 transition hover:bg-navy-50"
+          aria-label="পূর্ববর্তী মতামত"
+        >
+          <Icon name="chevron" class="h-5 w-5 rotate-90" />
+        </button>
+
+        <div class="flex gap-2">
+          {
+            testimonials.map((_, i) => (
+              <button
+                @click={`active = ${i}`}
+                :class={`active === ${i} ? 'w-8 bg-navy-700' : 'w-2.5 bg-navy-200'`}
+                class="h-2.5 rounded-full transition-all duration-300"
+                aria-label={`মতামত ${i + 1}`}
+              />
+            ))
+          }
+        </div>
+
+        <button
+          @click="next()"
+          class="grid h-11 w-11 place-items-center rounded-full border border-navy-200 bg-white text-navy-700 transition hover:bg-navy-50"
+          aria-label="পরবর্তী মতামত"
+        >
+          <Icon name="chevron" class="h-5 w-5 -rotate-90" />
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  [x-cloak] {
+    display: none !important;
+  }
+</style>

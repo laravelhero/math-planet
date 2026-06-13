@@ -1,0 +1,32 @@
+---
+import Icon from './Icon.astro';
+interface Props {
+  eyebrow?: string;
+  eyebrowIcon?: string;
+  title: string;
+  subtitle?: string;
+  light?: boolean;
+}
+const { eyebrow, eyebrowIcon = 'star', title, subtitle, light = false } = Astro.props;
+---
+
+<div class="reveal mx-auto mb-12 max-w-2xl text-center">
+  {
+    eyebrow && (
+      <span class:list={['eyebrow', light && 'bg-white/10 text-gold-300 ring-1 ring-white/15']}>
+        <Icon name={eyebrowIcon} class="h-4 w-4" />
+        {eyebrow}
+      </span>
+    )
+  }
+  <h2 class:list={['mt-4 text-3xl font-bold sm:text-4xl', light ? 'text-white' : 'text-navy-900']}>
+    {title}
+  </h2>
+  {
+    subtitle && (
+      <p class:list={['mt-4 text-base leading-relaxed sm:text-lg', light ? 'text-navy-100' : 'text-navy-600']}>
+        {subtitle}
+      </p>
+    )
+  }
+</div>
